@@ -1,3 +1,5 @@
+//本程式只參考老師的程式 https://github.com/ccc111b/cpu2os/blob/master/02-%E8%BB%9F%E9%AB%94/02-%E7%B7%A8%E8%AD%AF%E5%99%A8/01-diy/03d-compiler4/compiler.c
+//新增93行doWhile以及修改111行STMT
 #include <assert.h>
 #include "compiler.h"
 
