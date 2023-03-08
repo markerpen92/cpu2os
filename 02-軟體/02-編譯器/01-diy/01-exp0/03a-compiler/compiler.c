@@ -88,18 +88,41 @@ void WHILE() {
   emit("goto L%d\n", whileBegin);
   emit("(L%d)\n", whileEnd);
 }
+void doWhile()
+{
+  int whileBegin = nextLabel();
+  int whileEnd = nextLabel();
+  emit("(L%d)\n", whileEnd);
+  skip("do");
+  STMT();
+  emit("(L%d)\n", whileBegin);
+  emit("goto L%d\n", whileBegin);
+  skip("while");
+  skip("(");
+  int e = E();
+  emit("if not T%d goto L%d\n", e, whileEnd);
+  skip(")");
+  skip(";");
+}
 
 // STMT = WHILE | BLOCK | ASSIGN
 void STMT() {
-  if (isNext("while"))
-    WHILE();
+  if (isNext("do") )
+  {
+    doWhile();
+  }
   // else if (isNext("if"))
   //   IF();
+  else if (isNext("while"))
+  {
+    WHILE();
+  }
   else if (isNext("{"))
     BLOCK();
   else
     ASSIGN();
 }
+
 
 // STMTS = STMT*
 void STMTS() {
